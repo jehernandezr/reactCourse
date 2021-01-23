@@ -44,7 +44,11 @@ class DishDetail extends Component {
                 return (
                     <dl key={comment.id} className="unstyled-list">
                         <dd>{comment.comment}</dd>
-                        <dd>-- {comment.author}, {(new Date (comment.date)).toLocaleDateString('en-US',{month:"short",year:"numeric",day:"numeric"})}</dd>
+                        <dd>-- {comment.author}, {new Intl.DateTimeFormat('en-US',
+                        {year:'numeric',
+                        month:'short',
+                        day:'2-digit'}).format( new Date(Date.parse(comment.date)))}
+                        </dd>
                     </dl>
                 );
             });
@@ -63,7 +67,9 @@ class DishDetail extends Component {
     render() {
 
         return (
-            this.renderDish(this.props.dish)
+            <div className="container">
+            {this.renderDish(this.props.dish)}
+            </div>
         );
     }
 }
