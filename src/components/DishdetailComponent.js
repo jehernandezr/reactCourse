@@ -18,7 +18,7 @@ function RenderComments({comments}) {
             );
         });
         return (
-            <div className="col-12 col-md-5 m-1">
+            <div className="col-12 col-md-12">
                 <h4>Comments</h4>
                 {come}
             </div>
@@ -33,7 +33,7 @@ function RenderComments({comments}) {
         if (dish != null)
             return (
                 <div className="row">
-                    <div className="col-12 col-md-5 m-1">
+                    <div className="col-12 col-md-12">
                         <Card key={dish.id}>
                             <CardImg top src={dish.image} alt={dish.name} />
                             <CardBody>
