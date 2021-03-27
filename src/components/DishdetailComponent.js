@@ -24,19 +24,17 @@ class DishDetail extends Component{
                 </div>                
             </div>
             <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    <RenderDish dish={this.props.dish} />
-                </div>
-                <div className="col-12 col-md-5 m-1">
-                    <RenderComments comments={this.props.comments} />
-                </div>
+            <RenderDish dish={this.props.dish} />
+            <RenderComments comments={this.props.comments} 
+            dishId={this.props.dish.id}
+            addComment={this.props.addComment}/>
             </div>
             </div>
         );
       }
 }
 
-function RenderComments({comments}) {
+function RenderComments({comments, addComment, dishId}) {
     if (comments != null) {
         const come = comments.map((comment) => {
             return (
@@ -51,12 +49,10 @@ function RenderComments({comments}) {
             );
         });
         return (
-            <div className="col-12 col-md-12">
+            <div className="col-12 col-md-6">
                 <h4>Comments</h4>
                 {come}
-                <div>
-                <CommentForm></CommentForm>
-                </div>
+                <CommentForm dishId={dishId} addComment={addComment} />
             </div>
         );
     }
@@ -68,8 +64,7 @@ function RenderComments({comments}) {
     function RenderDish({dish}) {
         if (dish != null)
             return (
-                <div className="row">
-                    <div className="col-12 col-md-12">
+                    <div className="col-12 col-md-6">
                         <Card key={dish.id}>
                             <CardImg top src={dish.image} alt={dish.name} />
                             <CardBody>
@@ -78,7 +73,6 @@ function RenderComments({comments}) {
                             </CardBody>
                         </Card>
                     </div>
-                </div>
             );
         else
             return (
@@ -109,9 +103,8 @@ function RenderComments({comments}) {
         }
     
         handleSubmit(values) {
-            console.log('Current State is: ' + JSON.stringify(values));
-            alert('Current State is: ' + JSON.stringify(values));
-            // event.preventDefault();
+            this.toggleModal();
+            this.props.addComment(this.props.dishId,values.rating,values.author,values.comment);
         }
     
     
@@ -138,7 +131,7 @@ function RenderComments({comments}) {
                                 <Row className="form-group">
                                     <Label md={12} htmlFor="yourname" >Your Name</Label>
                                     <Col md={12}>
-                                        <Control.text model=".yourname" id="yourname" name="yourname"
+                                        <Control.text model=".author" id="yourname" name="yourname"
                                             placeholder="Your Name"
                                             className="form-control"
                                             validators={{
@@ -147,7 +140,7 @@ function RenderComments({comments}) {
                                         />
                                         <Errors
                                             className="text-danger"
-                                            model=".yourname"
+                                            model=".author"
                                             show="touched"
                                             messages={{
                                                 required: 'Required ',
@@ -160,7 +153,7 @@ function RenderComments({comments}) {
                                 <Row className="form-group">
                                     <Label htmlFor="message" md={12}>Comment</Label>
                                     <Col md={12}>
-                                        <Control.textarea model=".message" id="message" name="message"
+                                        <Control.textarea model=".comment" id="message" name="message"
                                             rows="12"
                                             className="form-control" />
                                     </Col>
