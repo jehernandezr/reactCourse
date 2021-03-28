@@ -5,34 +5,55 @@ import { Card, CardImg, CardText, CardBody,
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, Row, Col, Label } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
-class DishDetail extends Component{
-    
-    
 
-      render() {
+const  DishDetail =function (props) {
+    if (props.isLoading) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (props.errMess) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else if (props.dish != null) {
         return (
+            
             <div className="container">
             <div className="row">
                 <Breadcrumb>
 
                     <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
+                    <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
                 </Breadcrumb>
                 <div className="col-12">
-                    <h3>{this.props.dish.name}</h3>
+                    <h3>{props.dish.name}</h3>
                 </div>                
             </div>
             <div className="row">
-            <RenderDish dish={this.props.dish} />
-            <RenderComments comments={this.props.comments} 
-            dishId={this.props.dish.id}
-            addComment={this.props.addComment}/>
+            <RenderDish dish={props.dish} />
+            <RenderComments comments={props.comments} 
+            dishId={props.dish.id}
+            addComment={props.addComment}/>
             </div>
             </div>
         );
       }
-}
+      else {
+        return <div></div>
+    }
+    }
 
 function RenderComments({comments, addComment, dishId}) {
     if (comments != null) {
@@ -62,7 +83,7 @@ function RenderComments({comments, addComment, dishId}) {
         );
 }
     function RenderDish({dish}) {
-        if (dish != null)
+
             return (
                     <div className="col-12 col-md-6">
                         <Card key={dish.id}>
@@ -73,10 +94,6 @@ function RenderComments({comments, addComment, dishId}) {
                             </CardBody>
                         </Card>
                     </div>
-            );
-        else
-            return (
-                <div></div>
             );
     }
 
