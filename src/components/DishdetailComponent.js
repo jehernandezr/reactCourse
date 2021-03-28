@@ -71,7 +71,7 @@ function RenderComments({comments, postComment, dishId}) {
             );
         });
         return (
-            <div className="col-12 col-md-6">
+            <div className="col-12 col-md m-1">
                 <h4>Comments</h4>
                 {come}
                 <CommentForm dishId={dishId} postComment={postComment} />
@@ -86,7 +86,7 @@ function RenderComments({comments, postComment, dishId}) {
     function RenderDish({dish}) {
 
             return (
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md m-1">
                         <Card key={dish.id}>
                         <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                             <CardBody>
