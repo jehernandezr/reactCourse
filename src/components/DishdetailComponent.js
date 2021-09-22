@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, Row, Col, Label } from 'reactstrap';
 import { LocalForm } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
-import { Control, Form, Errors, actions } from 'react-redux-form';
+import { Control, Errors } from 'react-redux-form';
 import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
